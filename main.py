@@ -236,39 +236,4 @@ def main():
     elif action == 'list':
       print_index(index)
 
-# TEST SECTION 
-
-def test_sp_sections():
-    urls = ['https://www.priestsforlife.org/spanish/liturgia/liturgicalresource-cycles.aspx?id=86',
-            'https://www.priestsforlife.org/spanish/liturgia/liturgicalresource-cycles.aspx?id=2',
-            'https://www.priestsforlife.org/spanish/liturgia/liturgicalresource-cycles.aspx?id=3',
-            'https://www.priestsforlife.org/spanish/liturgia/liturgicalresource-cycles.aspx?id=4',
-            'https://www.priestsforlife.org/spanish/liturgia/liturgicalresource-cycles.aspx?id=157',
-            'https://www.priestsforlife.org/spanish/liturgia/liturgicalresource-cycles.aspx?id=158',
-            'https://www.priestsforlife.org/spanish/liturgia/liturgicalresource-cycles.aspx?id=159',
-            'https://www.priestsforlife.org/spanish/liturgia/liturgicalresource-cycles.aspx?id=160',
-            ]
-    for u in urls:
-      soup = get_soup(u)
-      p = petitions_in_spanish(soup)
-      print('TESTTESTTEST')
-      print(p.to_string('es'))
-      print('\n\n')
-
-def test_get_year_cycle():
-    years = [2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]
-    for y in years:
-        print(y, (y - YEAR_A) % 3)
-
-def test_read_index_file():
-    index = read_index_file()
-    for i in index:
-      print(i.to_string())
-
-def run_tests():
-  test_get_year_cycle()
-  test_read_index_file()
-  test_sp_sections()
-
-# run_tests()
 main()
