@@ -134,8 +134,15 @@ def petitions_in_english(soup):
     sections = soup.find_all('div', class_='col-md-12 mb-2')
     section = sections[0]
     pets = section.find_all('p')
-    intro = pets[0].contents[1]
-    petitions = [p.text for p in pets[1:-1] if p.contents[0].name != 'strong']
+    first_index = 0
+    # This while loop is to avoid special notes added before the petition, but
+    # included in the list of paragraphs. See 
+    # https://www.priestsforlife.org/liturgy/liturgicalresource-cycles.aspx?id=172
+    # for an example.
+    while len(pets[first_index].contents) < 2:
+        first_index += 1
+    intro = pets[first_index].contents[1]
+    petitions = [p.text for p in pets[first_index:-1] if p.contents[0].name != 'strong']
     petitions.append('For those celebrating their birthdays, , we pray to the Lord…')
     conclusion = pets[-1].text
     sanitized_intro = intro.replace(': ', '', 1).strip() if intro.startswith(': ') else intro.strip()
