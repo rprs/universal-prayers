@@ -13,15 +13,6 @@ ID_FOR_SPANISH_URL='ctl00_ContentPlaceHolder1_FormView1_SPHyperLink'
 ID_FOR_SPANISH_PETITIONS='ctl00_ctl00_parent_body_body_FormView1_GeneralIntercessionLabel'
 INDEX_URL = 'https://www.priestsforlife.org/liturgy/archive.aspx'
 INDEX_FILE='/home/rprs/src/church_community_prayers/index.txt'
-LETTERS='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-CELEBRANT = {
-    'en': 'Celebrant\n',
-    'es': 'Celebrante\n',
-    }
-LECTOR = {
-    'en': 'Deacon/Lector\n',
-    'es': 'Diácono/Lector\n',
-    }
 ACTION_OPTIONS = [
     'print',
     'update',
@@ -31,7 +22,7 @@ ACTION_OPTIONS = [
 
 @dataclass
 class YearIndex:
-    '''Class to keep thewebstie for every Sunday.'''
+    '''Entry (one per Sunday) in the list of petitions for the year.'''
     name: str
     url: str
     visited: bool
@@ -45,31 +36,42 @@ class YearIndex:
 
 @dataclass
 class Petitions:
-    '''Class to keep thewebstie for every Sunday.'''
+    '''Holds the petitions for a Sunday'''
     introduction: str
     conclusion: str
     petitions: List[str] = field(default_factory=list)
+    celebrant = {
+        'en': 'Celebrant\n',
+        'es': 'Celebrante\n',
+    }
+    lector = {
+        'en': 'Deacon/Lector\n',
+        'es': 'Diácono/Lector\n',
+    }
 
     def to_string(self, language='en'):
+      '''Prints the whole document for the specific peititons.'''
       text = ''
-      text += CELEBRANT[language]
+      text += celebrant[language]
       text += '\n'
       text += self.introduction
       text += '\n\n'
-      text += LECTOR[language]
+      text += lector[language]
       text += '\n'
       text += self.petitions_to_string()
       text += '\n'
-      text += CELEBRANT[language]
+      text += celebrant[language]
       text += '\n'
       text += self.conclusion
       return text
 
     def petitions_to_string(self):
+      ''' Prints the petition array in the format for the doc.'''
       text = ''
       index = 0
+      letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
       for p in self.petitions:
-        text += LETTERS[index]
+        text += letters[index]
         text += '\n'
         text += p
         text += '\n'
