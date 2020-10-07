@@ -40,17 +40,17 @@ class Petitions:
     introduction: str
     conclusion: str
     petitions: List[str] = field(default_factory=list)
-    celebrant = {
-        'en': 'Celebrant\n',
-        'es': 'Celebrante\n',
-    }
-    lector = {
-        'en': 'Deacon/Lector\n',
-        'es': 'Diácono/Lector\n',
-    }
 
     def to_string(self, language='en'):
       '''Prints the whole document for the specific peititons.'''
+      celebrant = {
+          'en': 'Celebrant\n',
+          'es': 'Celebrante\n',
+      }
+      lector = {
+          'en': 'Deacon/Lector\n',
+          'es': 'Diácono/Lector\n',
+      }
       text = ''
       text += celebrant[language]
       text += '\n'
